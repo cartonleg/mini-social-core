@@ -5,11 +5,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-public class UsersModel {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userid;
@@ -28,6 +27,9 @@ public class UsersModel {
 
     @CreationTimestamp
     private LocalDateTime creationtime;
+
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private Profiles profile;
 
     public Long getUserid() { return userid; }
     public String getEmail() { return email; }
