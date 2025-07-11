@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Users {
@@ -14,12 +16,9 @@ public class Users {
     private Long userid;
 
     @Column(unique = true, nullable = false)
-    @Email(message = "not a valid e-mail address")
-    @NotBlank(message = "e-mail cannot be empty")
     private String email;
 
     @Column(nullable = false)
-    @NotBlank(message = "password cannot be empty")
     private String password;
 
     @Column(unique = true)
@@ -30,6 +29,9 @@ public class Users {
 
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
     private Profiles profile;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<Posts> posts = new ArrayList<>();
 
     public Long getUserid() { return userid; }
     public String getEmail() { return email; }
