@@ -33,6 +33,9 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Posts> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<PostReaction> postreaction = new ArrayList<>();
+
     public Long getUserid() { return userid; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
