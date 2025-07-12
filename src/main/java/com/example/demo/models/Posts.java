@@ -20,7 +20,7 @@ public class Posts {
     @CreationTimestamp
     private LocalDateTime creationtime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     private Users users;
 

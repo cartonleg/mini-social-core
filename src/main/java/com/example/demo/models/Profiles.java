@@ -9,7 +9,7 @@ public class Profiles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileid;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "userid", referencedColumnName = "userid", unique = true)
     private Users users;
 

@@ -7,7 +7,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Users {
@@ -35,6 +37,12 @@ public class Users {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<PostReaction> postreaction = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    private Set<Relationships> sentRequests = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private Set<Relationships> receivedRequests = new HashSet<>();
 
     public Long getUserid() { return userid; }
     public String getEmail() { return email; }

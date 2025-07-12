@@ -12,12 +12,12 @@ public class PostReaction {
     private ReactionId reactionid;
 
     @MapsId("userid")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     private Users users;
 
     @MapsId("postid")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "postid", referencedColumnName = "postid")
     private Posts posts;
 
