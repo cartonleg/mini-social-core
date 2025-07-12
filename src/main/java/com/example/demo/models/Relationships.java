@@ -25,4 +25,13 @@ public class Relationships {
 
     @CreationTimestamp
     private LocalDateTime statustime;
+
+    public Users getSenderid() { return this.sender; }
+    public Users getReceiverid() { return this.receiver; }
+    public String getStatus() { return this.status; }
+    public LocalDateTime getStatustime() { return this.statustime; }
+
+    public void setStatus(String status) { this.status = status; }
+    public void setStatustime(LocalDateTime statustime) { this.statustime = statustime; }
+
 }
