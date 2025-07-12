@@ -1,8 +1,9 @@
 package com.example.demo.controllers;
 
-import com.example.demo.DTO.UsersRequestDTO;
+import com.example.demo.DTO.UserRegistrationDTO;
 import com.example.demo.models.Users;
 import com.example.demo.services.UsersService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Users> registerUser(@RequestBody UsersRequestDTO requestDTO) {
+    public ResponseEntity<Users> registerUser(@Valid @RequestBody UserRegistrationDTO requestDTO) {
         Users user =usersService.registerUser(requestDTO);
         return ResponseEntity.ok(user);
     }

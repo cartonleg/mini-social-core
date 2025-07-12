@@ -1,8 +1,18 @@
 package com.example.demo.DTO;
 
-public class UsersRequestDTO {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public class UserRegistrationDTO {
+    @Email(message = "Please enter a valid e-mail.")
+    @NotBlank(message = "E-mail is required.")
     private String email;
+
+    @NotBlank(message = "Password is required.")
+    @Size(min = 8, message = "Password must be atleast 8 characters.")
     private String password;
+
     private String username;
 
     public String getEmail() { return this.email; }
