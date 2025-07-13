@@ -24,5 +24,6 @@ public class Profiles {
 
     public void setDisplayname(String displayname) { this.displayname = displayname; }
     public void setBio(String bio) { this.bio = bio; }
+    public void setUserid(Users userid) { this.users = userid; }
 
 }
