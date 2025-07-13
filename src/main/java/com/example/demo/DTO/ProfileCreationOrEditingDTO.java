@@ -6,7 +6,7 @@ public class ProfileCreationOrEditingDTO {
     @Size(max = 50, message = "Bio must me a maximum of 50 characters.")
     private String bio;
 
-    @Size(max = 10, message = "Display name must be a maximum of 10 characters.")
+    @Size(max = 20, message = "Display name must be a maximum of 10 characters.")
     private String displayname;
 
     private Long userid;

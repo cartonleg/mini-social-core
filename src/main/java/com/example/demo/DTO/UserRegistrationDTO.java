@@ -13,6 +13,8 @@ public class UserRegistrationDTO {
     @Size(min = 8, message = "Password must be atleast 8 characters.")
     private String password;
 
+    @NotBlank(message = "User name is required.")
+    @Size(max = 20, message = "User name must be a maximum of 20 characters")
     private String username;
 
     public String getEmail() { return this.email; }
