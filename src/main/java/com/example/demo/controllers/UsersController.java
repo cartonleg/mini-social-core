@@ -33,7 +33,7 @@ public class UsersController {
             Map<String, String> error = Map.of("message", "Email or Username already in use.");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
         }
-        return ResponseEntity.ok(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping("/login")
