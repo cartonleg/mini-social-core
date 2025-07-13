@@ -7,7 +7,7 @@ public class UserLoginDTO {
     @NotBlank(message = "E-mail or username is required.")
     private String emailOrUsername;
 
-    @NotBlank
+    @NotBlank(message = "Password is required.")
     private String password;
 
     public String getEmailOrUsername() { return this.emailOrUsername; }

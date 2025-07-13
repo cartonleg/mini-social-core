@@ -7,12 +7,13 @@ import com.example.demo.repositories.UsersRepository;
 import com.example.demo.services.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,14 +27,33 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Users> registerUser(@Valid @RequestBody UserRegistrationDTO requestDTO) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO requestDTO) {
         Users user = usersService.registerUser(requestDTO);
+        if (user == null) {
+            Map<String, String> error = Map.of("message", "Email or Username already in use.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        }
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/login")
-    public Users loginUser(@Valid @RequestBody UserLoginDTO requestDTO) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO requestDTO) {
         Users user = usersService.loginUser(requestDTO);
-        return user;
+        if (user == null){
+            Map<String, String> error = Map.of("message", "Incorrect credintials.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+        }
+        return ResponseEntity.ok(user);
+    }
+
+    // this part is only used to return the errors from the DTO @Valid for the whole controller
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put("message", error.getDefaultMessage())
+        );
+        return errors;
     }
 }
