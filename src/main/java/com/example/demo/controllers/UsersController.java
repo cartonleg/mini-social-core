@@ -33,7 +33,7 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserRequestDTO requestDTO) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody UserRequestDTO requestDTO) {
         Users user = usersService.loginUser(requestDTO);
         return ResponseEntity.ok(userMapper.toResponseDTO(user));
     }
