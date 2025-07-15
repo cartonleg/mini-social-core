@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.DTO.UserMapper;
 import com.example.demo.DTO.UserRequestDTO;
 import com.example.demo.models.Users;
 import com.example.demo.services.UsersService;
@@ -17,22 +18,24 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UsersController {
     private final UsersService usersService;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UsersController(UsersService usersService) {
+    public UsersController(UsersService usersService, UserMapper userMapper) {
         this.usersService = usersService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRequestDTO requestDTO) {
         Users user = usersService.registerUser(requestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toResponseDTO(user));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UserRequestDTO requestDTO) {
         Users user = usersService.loginUser(requestDTO);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userMapper.toResponseDTO(user));
     }
 
     // this part is only used to return the errors from the DTO @Valid for the whole controller
