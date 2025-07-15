@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.DTO.UserLoginDTO;
 import com.example.demo.DTO.UserRegistrationDTO;
 import com.example.demo.config.SecurityConfig;
+import com.example.demo.exceptions.UserAlreadyExistException;
 import com.example.demo.models.Users;
 import com.example.demo.repositories.UsersRepository;
 import org.apache.catalina.User;
@@ -24,10 +25,11 @@ public class UsersService {
     }
 
     public Users registerUser(UserRegistrationDTO requestDTO) {
-        Users user = new Users();
-        if (usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).isPresent()) {
-            return null;
+        Users existingUser = usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).orElse(null);
+        if (existingUser != null){
+            throw new UserAlreadyExistException("Email or username already in use.");
         }
+        Users user = new Users();
         user.setEmail(requestDTO.getEmail());
         String encoded = passwordEncoder.encode(requestDTO.getPassword());
         user.setPassword(encoded);
