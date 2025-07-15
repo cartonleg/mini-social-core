@@ -1,9 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.DTO.UserLoginDTO;
-import com.example.demo.DTO.UserRegistrationDTO;
+import com.example.demo.DTO.UserDTO;
 import com.example.demo.models.Users;
-import com.example.demo.repositories.UsersRepository;
 import com.example.demo.services.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -27,13 +24,13 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO requestDTO) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO requestDTO) {
         Users user = usersService.registerUser(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO requestDTO) {
+    public ResponseEntity<?> loginUser(@RequestBody UserDTO requestDTO) {
         Users user = usersService.loginUser(requestDTO);
         return ResponseEntity.ok(user);
     }
