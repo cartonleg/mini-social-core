@@ -13,4 +13,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
+    @ExceptionHandler({UserDoesNotExistException.class})
+    public ResponseEntity<?> handleUserDoesNotExistException(UserDoesNotExistException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
 }

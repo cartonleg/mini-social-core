@@ -4,6 +4,7 @@ import com.example.demo.DTO.UserLoginDTO;
 import com.example.demo.DTO.UserRegistrationDTO;
 import com.example.demo.config.SecurityConfig;
 import com.example.demo.exceptions.UserAlreadyExistException;
+import com.example.demo.exceptions.UserDoesNotExistException;
 import com.example.demo.models.Users;
 import com.example.demo.repositories.UsersRepository;
 import org.apache.catalina.User;
@@ -42,7 +43,7 @@ public class UsersService {
         if ((user != null) && (passwordEncoder.matches(requestDTO.getPassword(), user.getPassword()))) {
             return user;
         }
-        return null;
+        throw new UserDoesNotExistException("Incorrect credentials.");
     }
 
 }
