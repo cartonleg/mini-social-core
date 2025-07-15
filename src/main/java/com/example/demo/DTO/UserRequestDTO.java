@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class UserDTO {
+public class UserRequestDTO {
     @Email(message = "Please enter a valid e-mail.")
     @NotBlank(message = "E-mail is required.")
     private String email;

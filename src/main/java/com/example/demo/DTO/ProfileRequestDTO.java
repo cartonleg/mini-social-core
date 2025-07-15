@@ -2,7 +2,7 @@ package com.example.demo.DTO;
 
 import jakarta.validation.constraints.Size;
 
-public class ProfileDTO {
+public class ProfileRequestDTO {
     @Size(max = 50, message = "Bio must me a maximum of 50 characters.")
     private String bio;
 

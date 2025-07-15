@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.DTO.ProfileDTO;
+import com.example.demo.DTO.ProfileRequestDTO;
 import com.example.demo.models.Profiles;
 import com.example.demo.services.ProfilesService;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class ProfilesController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createOrEditProfile(@Valid @RequestBody ProfileDTO requestDTO){
+    public ResponseEntity<?> createOrEditProfile(@Valid @RequestBody ProfileRequestDTO requestDTO){
         Profiles profile = profilesService.createOrEditProfile(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(profile);
     }

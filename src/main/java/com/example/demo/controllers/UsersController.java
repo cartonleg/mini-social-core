@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.DTO.UserDTO;
+import com.example.demo.DTO.UserRequestDTO;
 import com.example.demo.models.Users;
 import com.example.demo.services.UsersService;
 import jakarta.validation.Valid;
@@ -24,13 +24,13 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO requestDTO) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRequestDTO requestDTO) {
         Users user = usersService.registerUser(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserDTO requestDTO) {
+    public ResponseEntity<?> loginUser(@RequestBody UserRequestDTO requestDTO) {
         Users user = usersService.loginUser(requestDTO);
         return ResponseEntity.ok(user);
     }

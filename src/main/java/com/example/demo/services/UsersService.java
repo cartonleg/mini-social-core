@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.DTO.UserDTO;
+import com.example.demo.DTO.UserRequestDTO;
 import com.example.demo.exceptions.AlreadyExistException;
 import com.example.demo.exceptions.DoesNotExistException;
 import com.example.demo.models.Users;
@@ -20,7 +20,7 @@ public class UsersService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Users registerUser(UserDTO requestDTO) {
+    public Users registerUser(UserRequestDTO requestDTO) {
         Users existingUser = usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).orElse(null);
         if (existingUser != null){
             throw new AlreadyExistException("Email or username already in use.");
@@ -33,7 +33,7 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
-    public Users loginUser(UserDTO requestDTO) {
+    public Users loginUser(UserRequestDTO requestDTO) {
         Users user = usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).orElse(null);
         if ((user != null) && (passwordEncoder.matches(requestDTO.getPassword(), user.getPassword()))) {
             return user;
