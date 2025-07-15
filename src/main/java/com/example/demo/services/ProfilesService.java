@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.ProfileCreationOrEditingDTO;
+import com.example.demo.exceptions.DoesNotExistException;
 import com.example.demo.models.Profiles;
 import com.example.demo.models.Users;
 import com.example.demo.repositories.ProfilesRepository;
@@ -22,7 +23,7 @@ public class ProfilesService {
     public Profiles createOrEditProfile(ProfileCreationOrEditingDTO requestDTO){
         Users user = usersRepository.findByUserid(requestDTO.getUserid()).orElse(null);
         if (user == null){
-            return null;
+            throw new DoesNotExistException("User does not exist.");
         }
         Profiles profile = profilesRepository.findByUsers_Userid(requestDTO.getUserid()).orElse(null);
         if (profile != null){

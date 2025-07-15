@@ -2,17 +2,13 @@ package com.example.demo.services;
 
 import com.example.demo.DTO.UserLoginDTO;
 import com.example.demo.DTO.UserRegistrationDTO;
-import com.example.demo.config.SecurityConfig;
-import com.example.demo.exceptions.UserAlreadyExistException;
-import com.example.demo.exceptions.UserDoesNotExistException;
+import com.example.demo.exceptions.AlreadyExistException;
+import com.example.demo.exceptions.DoesNotExistException;
 import com.example.demo.models.Users;
 import com.example.demo.repositories.UsersRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UsersService {
@@ -28,7 +24,7 @@ public class UsersService {
     public Users registerUser(UserRegistrationDTO requestDTO) {
         Users existingUser = usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).orElse(null);
         if (existingUser != null){
-            throw new UserAlreadyExistException("Email or username already in use.");
+            throw new AlreadyExistException("Email or username already in use.");
         }
         Users user = new Users();
         user.setEmail(requestDTO.getEmail());
@@ -43,7 +39,7 @@ public class UsersService {
         if ((user != null) && (passwordEncoder.matches(requestDTO.getPassword(), user.getPassword()))) {
             return user;
         }
-        throw new UserDoesNotExistException("Incorrect credentials.");
+        throw new DoesNotExistException("Incorrect credentials.");
     }
 
 }

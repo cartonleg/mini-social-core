@@ -29,20 +29,12 @@ public class UsersController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO requestDTO) {
         Users user = usersService.registerUser(requestDTO);
-        if (user == null) {
-            Map<String, String> error = Map.of("message", "Email or Username already in use.");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO requestDTO) {
         Users user = usersService.loginUser(requestDTO);
-        if (user == null){
-            Map<String, String> error = Map.of("message", "Incorrect credintials.");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
-        }
         return ResponseEntity.ok(user);
     }
 

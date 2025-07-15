@@ -26,10 +26,6 @@ public class ProfilesController {
     @PostMapping("/create")
     public ResponseEntity<?> createOrEditProfile(@Valid @RequestBody ProfileCreationOrEditingDTO requestDTO){
         Profiles profile = profilesService.createOrEditProfile(requestDTO);
-        if (profile == null){
-            Map<String, String> error = Map.of("message", "User does not exist.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(profile);
     }
 
