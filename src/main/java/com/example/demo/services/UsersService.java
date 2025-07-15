@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.DTO.UserMapper;
 import com.example.demo.DTO.UserRequestDTO;
 import com.example.demo.exceptions.AlreadyExistException;
 import com.example.demo.exceptions.DoesNotExistException;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Service;
 public class UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+    public UsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public Users registerUser(UserRequestDTO requestDTO) {
@@ -25,11 +28,8 @@ public class UsersService {
         if (existingUser != null){
             throw new AlreadyExistException("Email or username already in use.");
         }
-        Users user = new Users();
-        user.setEmail(requestDTO.getEmail());
-        String encoded = passwordEncoder.encode(requestDTO.getPassword());
-        user.setPassword(encoded);
-        user.setUsername(requestDTO.getUsername());
+        requestDTO.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+        Users user = userMapper.toUser(requestDTO);
         return usersRepository.save(user);
     }
 
