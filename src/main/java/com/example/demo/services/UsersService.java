@@ -34,7 +34,7 @@ public class UsersService {
     }
 
     public Users loginUser(UserRequestDTO requestDTO) {
-        Users user = usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).orElse(null);
+        Users user = usersRepository.findByEmailOrUsername(requestDTO.getEmailOrUsername(), requestDTO.getEmailOrUsername()).orElse(null);
         if ((user != null) && (passwordEncoder.matches(requestDTO.getPassword(), user.getPassword()))) {
             return user;
         }
