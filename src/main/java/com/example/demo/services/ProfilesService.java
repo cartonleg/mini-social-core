@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.DTO.ProfileMapper;
 import com.example.demo.DTO.ProfileRequestDTO;
 import com.example.demo.exceptions.DoesNotExistException;
 import com.example.demo.models.Profiles;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Service;
 public class ProfilesService {
     private final ProfilesRepository profilesRepository;
     private final UsersRepository usersRepository;
+    private final ProfileMapper profileMapper;
 
     @Autowired
-    public ProfilesService(ProfilesRepository profilesRepository, UsersRepository usersRepository){
+    public ProfilesService(ProfilesRepository profilesRepository, UsersRepository usersRepository, ProfileMapper profileMapper){
         this.profilesRepository = profilesRepository;
         this.usersRepository = usersRepository;
+        this.profileMapper = profileMapper;
     }
 
     public Profiles createOrEditProfile(ProfileRequestDTO requestDTO){
@@ -31,10 +34,7 @@ public class ProfilesService {
             profile.setDisplayname(requestDTO.getDisplayname());
             return profilesRepository.save(profile);
         }
-        Profiles profile2 = new Profiles();
-        profile2.setUserid(user);
-        profile2.setBio(requestDTO.getBio());
-        profile2.setDisplayname(requestDTO.getDisplayname());
+        Profiles profile2 = profileMapper.toProfile(requestDTO);
         return profilesRepository.save(profile2);
     }
 
