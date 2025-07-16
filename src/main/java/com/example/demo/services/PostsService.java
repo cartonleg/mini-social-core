@@ -28,7 +28,8 @@ public class PostsService {
         this.profilesRepository = profilesRepository;
     }
 
-    public PostResponseDTO CreatePost(PostRequestDTO requestDTO){
+    public PostResponseDTO CreatePost(PostRequestDTO requestDTO, Long id){
+        requestDTO.setUserid(id);
         Profiles profile = profilesRepository.findByUsers_Userid(requestDTO.getUserid()).orElse(null);
         if (profile == null){
             throw new DoesNotExistException("Either user does not exist or user did not create a profile yet.");
