@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public Users toUser(UserRequestDTO requestDTO){
+    public Users toUser(UserRegistrationRequestDTO requestDTO){
         Users user = new Users();
         user.setEmail(requestDTO.getEmail());
         user.setUsername(requestDTO.getUsername());
