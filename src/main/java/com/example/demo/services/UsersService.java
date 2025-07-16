@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.DTO.UserLoginRequestDTO;
 import com.example.demo.DTO.UserMapper;
 import com.example.demo.DTO.UserRegistrationRequestDTO;
+import com.example.demo.DTO.UserResponseDTO;
 import com.example.demo.exceptions.AlreadyExistException;
 import com.example.demo.exceptions.DoesNotExistException;
 import com.example.demo.models.Users;
@@ -24,20 +25,21 @@ public class UsersService {
         this.userMapper = userMapper;
     }
 
-    public Users registerUser(UserRegistrationRequestDTO requestDTO) {
+    public UserResponseDTO registerUser(UserRegistrationRequestDTO requestDTO) {
         Users existingUser = usersRepository.findByEmailOrUsername(requestDTO.getEmail(), requestDTO.getUsername()).orElse(null);
         if (existingUser != null){
             throw new AlreadyExistException("Email or username already in use.");
         }
         requestDTO.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
         Users user = userMapper.toUser(requestDTO);
-        return usersRepository.save(user);
+        usersRepository.save(user);
+        return userMapper.toResponseDTO(user);
     }
 
-    public Users loginUser(UserLoginRequestDTO requestDTO) {
+    public UserResponseDTO loginUser(UserLoginRequestDTO requestDTO) {
         Users user = usersRepository.findByEmailOrUsername(requestDTO.getEmailOrUsername(), requestDTO.getEmailOrUsername()).orElse(null);
         if ((user != null) && (passwordEncoder.matches(requestDTO.getPassword(), user.getPassword()))) {
-            return user;
+            return userMapper.toResponseDTO(user);
         }
         throw new DoesNotExistException("Incorrect credentials.");
     }
