@@ -33,4 +33,5 @@ public class Posts {
     public LocalDateTime getCreationtime() { return creationtime; }
 
     public void setText(String text) { this.text = text; }
+    public void setUserid(Users userid) { this.users = userid; }
 }
