@@ -31,15 +31,4 @@ public class ProfilesController {
         Profiles profile = profilesService.createOrEditProfile(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(profileMapper.toResponseDTO(profile));
     }
-
-    // this part is only used to return the errors from the DTO @Valid for the whole controller
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put("message", error.getDefaultMessage())
-        );
-        return errors;
-    }
 }
