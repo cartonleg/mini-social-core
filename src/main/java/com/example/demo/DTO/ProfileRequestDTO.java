@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class ProfileRequestDTO {
@@ -9,6 +10,7 @@ public class ProfileRequestDTO {
     @Size(max = 20, message = "Display name must be a maximum of 10 characters.")
     private String displayname;
 
+    @NotBlank(message = "User ID is required.")
     private Long userid;
 
     public String getBio() { return this.bio; }
