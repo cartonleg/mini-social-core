@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,6 +17,11 @@ public class ReactionId implements Serializable {
         this.userid = userid;
         this.postid = postid;
     }
+    public Long getUserid() { return userid; }
+    public Long getPostid() { return postid; }
+
+    public void setUserid(Long userid) { this.userid = userid; }
+    public void setPostid(Long postid) { this.postid = postid; }
 
     @Override
     public boolean equals(Object o) {
