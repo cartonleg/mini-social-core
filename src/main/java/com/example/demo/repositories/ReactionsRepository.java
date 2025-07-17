@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ReactionsRepository extends JpaRepository<Reactions, ReactionId> {
-    Optional<Reactions> findByUsers_Userid(Long userid);
-    Optional<Reactions> findByPosts_Postid(Long postid);
+    Optional<Reactions> findByUserid_Userid(Long userid);
+    Optional<Reactions> findByPostid_Postid(Long postid);
 }
