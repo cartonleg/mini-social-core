@@ -23,7 +23,7 @@ public class Posts {
     @JoinColumn(name = "userid", referencedColumnName = "userid")
     private Users users;
 
-    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "postid", cascade = CascadeType.ALL)
     private List<Reactions> reaction = new ArrayList<>();
 
     public Long getPostid() { return postid; }
