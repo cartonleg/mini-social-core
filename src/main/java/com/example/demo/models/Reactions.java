@@ -14,12 +14,12 @@ public class Reactions {
     @MapsId("userid")
     @ManyToOne
     @JoinColumn(name = "userid", referencedColumnName = "userid")
-    private Users users;
+    private Users userid;
 
     @MapsId("postid")
     @ManyToOne
     @JoinColumn(name = "postid", referencedColumnName = "postid")
-    private Posts posts;
+    private Posts postid;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -28,10 +28,13 @@ public class Reactions {
     @CreationTimestamp
     private LocalDateTime reactiontime;
 
-    public Users getUserid() { return this.users; }
-    public Posts getPostid() { return this.posts; }
+    public Users getUserid() { return this.userid; }
+    public Posts getPostid() { return this.postid; }
     public ReactionsEnums getReaction() { return this.reaction; }
     public LocalDateTime getReactiontime() { return this.reactiontime; }
 
     public void setReaction(ReactionsEnums reaction) { this.reaction = reaction; }
+    public void setPostid(Posts postid) { this.postid = postid; }
+    public void setUserid(Users userid) { this.userid = userid; }
+    public void setReactionid(ReactionId reactionid) {this.reactionid = reactionid; }
 }
