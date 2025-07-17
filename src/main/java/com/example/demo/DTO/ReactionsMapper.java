@@ -1,6 +1,7 @@
 package com.example.demo.DTO;
 
 import com.example.demo.models.Posts;
+import com.example.demo.models.ReactionId;
 import com.example.demo.models.Reactions;
 import com.example.demo.models.Users;
 import com.example.demo.repositories.PostsRepository;
@@ -24,13 +25,15 @@ public class ReactionsMapper {
         reaction.setUserid(user);
         Posts post = postsRepository.findByPostid(requestDTO.getPostid()).orElse(null);
         reaction.setPostid(post);
+        ReactionId reactionId = new ReactionId(requestDTO.getUserid(), requestDTO.getPostid());
+        reaction.setReactionid(reactionId);
         return reaction;
     }
 
     public ReactionsDTO toReactionDTO(Reactions reaction){
         ReactionsDTO response = new ReactionsDTO();
         response.setReaction(reaction.getReaction());
-        response.setPostid(reaction.getPostid().getPostid());
+        response.setUserid(reaction.getUserid().getUserid());
         response.setPostid(reaction.getPostid().getPostid());
         return response;
     }
