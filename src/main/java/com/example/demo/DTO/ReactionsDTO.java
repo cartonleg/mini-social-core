@@ -7,8 +7,10 @@ import jakarta.validation.constraints.NotNull;
 public class ReactionsDTO {
     private Long userid;
 
+    @NotNull(message = "Post ID can't be null.")
     private Long postid;
 
+    @NotNull(message = "Reaction can't be null.")
     private ReactionsEnums reaction;
 
     public Long getUserid() { return this.userid; }
