@@ -1,8 +1,6 @@
 package com.example.demo.DTO;
 
 import com.example.demo.enums.ReactionsEnums;
-import com.example.demo.enums.ValidEnum;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class ReactionsDTO {
@@ -12,7 +10,6 @@ public class ReactionsDTO {
     private Long postid;
 
     @NotNull(message = "Reaction can't be null.")
-    @ValidEnum(enumClass = ReactionsEnums.class, message = "Valid reactions: (HAPPY, SAD, LIKE, DISLIKE).")
     private ReactionsEnums reaction;
 
     public Long getUserid() { return this.userid; }
