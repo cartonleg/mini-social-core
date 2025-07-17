@@ -1,8 +1,6 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -36,7 +34,7 @@ public class Users {
     private List<Posts> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<PostReaction> postreaction = new ArrayList<>();
+    private List<Reactions> reaction = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private Set<Relationships> sentRequests = new HashSet<>();

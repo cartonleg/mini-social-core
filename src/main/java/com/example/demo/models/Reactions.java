@@ -3,11 +3,10 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class PostReaction {
+public class Reactions {
     @EmbeddedId
     private ReactionId reactionid;
 
