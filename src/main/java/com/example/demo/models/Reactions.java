@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.example.demo.enums.ReactionsEnums;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,16 +21,17 @@ public class Reactions {
     @JoinColumn(name = "postid", referencedColumnName = "postid")
     private Posts posts;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String reaction;
+    private ReactionsEnums reaction;
 
     @CreationTimestamp
     private LocalDateTime reactiontime;
 
     public Users getUserid() { return this.users; }
     public Posts getPostid() { return this.posts; }
-    public String getReaction() { return this.reaction; }
+    public ReactionsEnums getReaction() { return this.reaction; }
     public LocalDateTime getReactiontime() { return this.reactiontime; }
 
-    public void setReaction(String reaction) { this.reaction = reaction; }
+    public void setReaction(ReactionsEnums reaction) { this.reaction = reaction; }
 }
