@@ -1,8 +1,6 @@
 package com.example.demo.controllers;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
 import com.example.demo.DTO.ReactionsDTO;
-import com.example.demo.DTO.ReactionsResponseDTO;
 import com.example.demo.services.ReactionsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.DTO.ReactionsMapper;
 import com.example.demo.DTO.ReactionsDTO;
-import com.example.demo.DTO.ReactionsResponseDTO;
-import com.example.demo.enums.ReactionsEnums;
 import com.example.demo.exceptions.DoesNotExistException;
-import com.example.demo.exceptions.InvalidInputException;
 import com.example.demo.models.Posts;
 import com.example.demo.models.Profiles;
 import com.example.demo.models.Reactions;
