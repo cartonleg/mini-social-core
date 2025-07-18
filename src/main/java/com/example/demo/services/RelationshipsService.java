@@ -82,4 +82,20 @@ public class RelationshipsService {
         }
         return requests;
     }
+
+    public RelationshipsDTO acceptFriendRequest(RelationshipsDTO requestDTO, Long id) {
+
+        Profiles profileSender = profilesRepository.findByUsers_Userid(id).orElse(null);
+        if (profileSender == null) {
+            throw new DoesNotExistException("Sender id does not exist.");
+        }
+        Relationships relationship = relationshipsRepository.findBySender_UseridAndReceiver_Userid(requestDTO.getReceiverId(), id).orElse(null);
+        if (relationship == null) {
+            throw new DoesNotExistException("You did not receive a friend request from this user.");
+        }
+        relationship.setStatus(RelationshipsEnums.FRIENDS);
+        relationshipsRepository.save(relationship);
+        requestDTO.setStatus(RelationshipsEnums.FRIENDS);
+        return requestDTO;
+    }
 }

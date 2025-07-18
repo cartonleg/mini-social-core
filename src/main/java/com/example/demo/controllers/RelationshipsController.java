@@ -27,4 +27,10 @@ public class RelationshipsController {
         Set<?> list = relationshipsService.getRecievedRequests(id);
         return list;
     }
+
+    @PostMapping("/accept/{id}")
+    public RelationshipsDTO acceptFriendRequest(@Valid @RequestBody RelationshipsDTO requestDTO, @PathVariable Long id) {
+        RelationshipsDTO response = relationshipsService.acceptFriendRequest(requestDTO, id);
+        return response;
+    }
 }
