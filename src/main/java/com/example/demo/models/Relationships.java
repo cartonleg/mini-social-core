@@ -1,6 +1,8 @@
 package com.example.demo.models;
 
+import com.example.demo.enums.RelationshipsEnums;
 import jakarta.persistence.*;
+import org.apache.catalina.User;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -21,17 +23,19 @@ public class Relationships {
     private Users receiver;
 
     @Column(nullable = false)
-    private String status;
+    private RelationshipsEnums status;
 
     @CreationTimestamp
     private LocalDateTime statustime;
 
     public Users getSenderid() { return this.sender; }
     public Users getReceiverid() { return this.receiver; }
-    public String getStatus() { return this.status; }
+    public RelationshipsEnums getStatus() { return this.status; }
     public LocalDateTime getStatustime() { return this.statustime; }
 
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(RelationshipsEnums status) { this.status = status; }
     public void setStatustime(LocalDateTime statustime) { this.statustime = statustime; }
-
+    public void setReceiver(Users receiver) { this.receiver = receiver; }
+    public void setSender(Users sender) { this.sender = sender; }
+    public void setRelationshipid(RelationshipId relationshipid) { this.relationshipid = relationshipid; }
 }
