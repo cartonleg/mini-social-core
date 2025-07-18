@@ -14,6 +14,9 @@ import com.example.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Set;
+
 @Service
 public class RelationshipsService {
     private final ProfilesRepository profilesRepository;
@@ -64,5 +67,19 @@ public class RelationshipsService {
         }
         requestDTO.setStatus(RelationshipsEnums.PENDING);
         return requestDTO;
+    }
+
+    public Set<?> getRecievedRequests(Long id) {
+
+        Profiles profileSender = profilesRepository.findByUsers_Userid(id).orElse(null);
+        if (profileSender == null) {
+            throw new DoesNotExistException("Sender id does not exist.");
+        }
+
+        Set<Long> requests = relationshipsRepository.findSender_UseridByReceiver_Userid(id, RelationshipsEnums.PENDING).orElse(null);
+        if (requests == null) {
+            return Collections.EMPTY_SET;
+        }
+        return requests;
     }
 }
